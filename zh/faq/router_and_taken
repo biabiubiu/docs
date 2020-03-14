@@ -1,0 +1,27 @@
+---
+title: 路由token鉴权,界面跳转有延迟
+description: 路由token鉴权,界面跳转有延迟,请问怎么解决?
+---
+
+# 使用路由token鉴权,界面跳转有延迟？下面是我的代码
+
+```javascript
+export default ({ app }) => {
+  app.router.beforeEach((to, from, next) => {
+    if (to.path === '/login') return next();
+
+    if (process.client) {
+      let t = window.sessionStorage.getItem('token');
+      if (!t) {
+        next('/login');
+        return;
+      }
+    }
+
+    next();
+  });
+}
+
+```
+演示:
+![tu](https://gitee.com/anle520/My-Sharing/blob/master/question.gif)
